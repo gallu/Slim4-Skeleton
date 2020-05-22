@@ -1,5 +1,5 @@
 {
-    "name": "gallu/slim-skeleton",
+    "name": "gallu/slim4-skeleton",
     "description": "A Slim Framework skeleton application for rapid business use development",
     "keywords": ["microframework", "rest", "psr7", "slim"],
     "license": "MIT",
