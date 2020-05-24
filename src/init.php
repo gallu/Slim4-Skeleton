@@ -24,14 +24,12 @@ $container = $containerBuilder->build();
 // appインスタンスの生成
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-//
-
-// routerインスタンスの把握
-$container->set('router', $app->getRouteCollector());
-
 // container への追加設定
 $dependencies = require(BASEPATH . '/src/dependencies.php');
 $dependencies($container, $app);
+
+// routerインスタンスの把握
+$container->set('router', $app->getRouteCollector());
 
 // DBとConfigを使うための準備
 // XXX DBとConfigだけは「どこからでも」触りたいので

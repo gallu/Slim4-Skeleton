@@ -54,8 +54,32 @@ $container->set('csrf', function () use ($responseFactory) {
         'logger' , function () use($container, $app) {
             $settings = $container->get('settings')['logger'];
             $logger = new Monolog\Logger($settings['name']);
-            $logger->pushProcessor(new Monolog\Processor\UidProcessor());
-            $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+
+            // 普通のログ
+            if (isset($settings['Stream'])) {
+                if ('off' === $settings['Stream']['rotating']) {
+                    $obj = new \Monolog\Handler\StreamHandler($settings['Stream']['path'], $settings['Stream']['level']);
+                } else {
+                    // XXX
+                    $obj = new \Monolog\Handler\RotatingFileHandler($settings['Stream']['path'], 0, $settings['Stream']['level']);
+                }
+                //
+                $logger->pushHandler($obj);
+            }
+
+            // FingersCrossedHandler
+            if (isset($settings['FingersCrossed'])) {
+                if ('off' === $settings['FingersCrossed']['rotating']) {
+                    $obj = new \Monolog\Handler\StreamHandler($settings['FingersCrossed']['path'], $settings['FingersCrossed']['level']);
+                } else {
+                    // XXX
+                    $obj = new \Monolog\Handler\RotatingFileHandler($settings['FingersCrossed']['path'], 0, $settings['FingersCrossed']['level']);
+                }
+                //
+                $logger->pushHandler($obj, new \Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy($settings['FingersCrossed']['activationStrategy_level']));
+            }
+
+            //$logger->pushProcessor(new Monolog\Processor\UidProcessor());
             return $logger;
         }
     );

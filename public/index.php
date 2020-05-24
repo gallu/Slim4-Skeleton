@@ -19,6 +19,21 @@ require(BASEPATH . '/src/routes.php');
 // sessionの設定
 require(BASEPATH . '/src/session.php');
 
+// Add Routing Middleware
+$app->addRoutingMiddleware();
+
+/* エラーの設定
+ * Note: This middleware should be added last. It will not handle any exceptions/errors
+ * for middleware added after it.
+ */
+// XXX 第二引数logErrors と 第三引数logErrorDetails は常にonに
+$errorMiddleware = $app->addErrorMiddleware($container->get('settings')['displayErrorDetails'], true, true, $container->get('logger'));
+// 本番想定 エラーページの編集
+if (false === $container->get('settings')['displayErrorDetails']) {
+    $errorHandler = $errorMiddleware->getDefaultErrorHandler();
+    $errorHandler->registerErrorRenderer('text/html', \App\Controller\ErrorRenderer::class);
+}
+
 // Run app
 $app->run();
 

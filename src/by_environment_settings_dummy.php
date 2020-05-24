@@ -40,6 +40,7 @@ return [
         // level: DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY
         'logger' => [
             'name' => 'sample',
+            'level' => \Monolog\Logger::DEBUG,
             /*
             // 普通のログ
             'Stream' => [
