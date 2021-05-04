@@ -20,9 +20,9 @@ class ControllerBase
     /**
      * setNameからURIを取得するためのラッパー
      */
-    protected function urlFor($name)
+    protected function urlFor(string $name, array $data = [], array $queryParams = [])
     {
-        return $this->container->get('router')->getRouteParser()->urlFor($name);
+        return $this->container->get('router')->getRouteParser()->urlFor($name, $data, $queryParams);
     }
 
     /**
