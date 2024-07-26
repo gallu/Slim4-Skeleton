@@ -3,6 +3,7 @@
 *.swp
 .php_cs.cache
 .phpunit.result.cache
+composer.lock
 
 
 # 環境別設定ファイル

@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+ob_start();
+
 // 基準になるディレクトリ(最後の / はない形式で)
 define('BASEPATH', realpath(__DIR__ . '/..'));
 

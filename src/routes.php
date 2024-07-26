@@ -51,7 +51,7 @@ $app->group('/sample', function(RouteCollectorProxy $app) {
     // session
     $app->get('/session', Sample::class . ':session');
     // Cookie
-    //$app->get('/cookie', Sample::class . ':cookie');
+    $app->get('/cookie', Sample::class . ':cookie');
 
     // middleware付き(middlewareは空でよいかなぁ...)
     $app->group('', function() use ($app) {

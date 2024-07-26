@@ -91,16 +91,16 @@ class Sample extends ControllerBase
 
         // 設定
         $name = 'rand_tmp';
-        $val = mt_rand(0, 999);
-        $this->container->get('cookie')->set($name, $val, ['expires' => null ]);
-        $context['rand_tmp_set'] = $val;
-        $context['rand_tmp'] = $this->container->get('cookie')->get('rand_tmp');
+        $context[$name] = $this->container->get('cookie')->get($name);
+        $val = (string) random_int(0, 999);
+        $this->container->get('cookie')->set($name, ['value'=> $val, 'expires' => time() + 60 * 60]);
+        $context["{$name}_set"] = $val;
         //
         $name = 'rand';
-        $val = mt_rand(0, 999);
+        $context[$name] = $this->container->get('cookie')->get($name);
+        $val = (string) random_int(0, 999);
         $this->container->get('cookie')->set($name, $val);
-        $context['rand_set'] = $val;
-        $context['rand'] = $this->container->get('cookie')->get('rand');
+        $context["{$name}_set"] = $val;
 
         // 出力
         return $this->write($response, 'sample/cookie.twig', $context);

@@ -3,7 +3,7 @@
 namespace App\Middleware;
 
 // Cookie
-//$app->add(new \SlimLittleTools\Middleware\Cookie($app->getContainer()));
+$app->add(new \SlimLittleTools\Middleware\Cookie($app->getContainer()));
 
 // routting ??
 $app->addRoutingMiddleware();
